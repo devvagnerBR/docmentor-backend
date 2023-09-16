@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,90 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+
+model School {
+
+  id String @id
+  name String @unique
+  cep Int
+  created_at DateTime @default(now())
+  teachers Teacher[] 
+  
+  @@map("schools")
+}
+
+
+model Teacher {
+
+  id String @id
+  name String 
+  email String @unique
+  password String
+  job String?
+  phone_number Int? @unique
+  profile_img String? @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+  created_at DateTime @default(now())
+
+  students Student[]
+  
+  school_id String
+  school School @relation(fields: [school_id],references: [id])
+
+  @@map("teachers")
+}
+
+model Student {
+
+  id String @id
+  name String
+  birthday String 
+  school_year String 
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  service_days String[]
+  status Boolean @default(true)
+
+  teacher_id String
+  teacher Teacher @relation(fields: [teacher_id],references: [id])
+
+  parents_id String
+  parents Parent @relation(fields: [parents_id], references: [id])
+
+  reports Report[]
+
+
+
+
+  @@map("students")
+}
+
+
+model Parent {
+
+  id String @id
+  father_name String?
+  mother_name String?
+  phone_number1 Int 
+  phone_number2 Int?
+  address  String
+
+  students Student[]
+  
+  @@map("parents")
+
+}
+
+model Report {
+
+  id String @id
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  student_id String
+  student Student @relation(fields: [student_id], references: [id])
+
+  @@map("reports")
 }
