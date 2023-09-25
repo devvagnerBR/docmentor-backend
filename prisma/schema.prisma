@@ -12,10 +12,10 @@ model School {
 
   id String @id
   name String @unique
-  cep Int
+  cep String
   created_at DateTime @default(now())
-
-  
+  teachers Teacher[] 
+  students Student[]
   @@map("schools")
 }
 
@@ -31,10 +31,23 @@ model Teacher {
   phone_number Int? @unique
   profile_img String? @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
   created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+
   students Student[]
-  
+  schools School[] 
+
+  // school_id String @default("1")
+  // schools School @relation(fields: [school_id],references: [id])
+
   @@map("teachers")
+}
+
+
+enum ServiceDays {
+  SEGUNDA_FEIRA
+  TERCA_FEIRA
+  QUARTA_FEIRA
+  QUINTA_FEIRA
+  SEXTA_FEIRA
 }
 
 model Student {
@@ -42,19 +55,21 @@ model Student {
   id String @id
   name String
   birthday String 
-  school_year String 
+  school_grade String 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  service_days String[]
+  service_days ServiceDays[]
   status Boolean @default(true)
 
   teacher_id String
   teacher Teacher @relation(fields: [teacher_id],references: [id])
 
-  parents_id String
-  parents Parent @relation(fields: [parents_id], references: [id])
-
+  // parents_id String
+  // parents Parent @relation(fields: [parents_id], references: [id])
+  parents Parent[]
   reports Report[]
+
+  school School[]
 
 
 

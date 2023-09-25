@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from "cors"
-import { userRouter } from './router/user-router';
+import { teacherRouter } from './router/teacher-router';
+import { schoolRouter } from './router/school-router';
+import { studentRouter } from './router/student-router';
+import { parentRouter } from './router/parent-router';
 
 
 const port = process.env.PORT || 4242;
@@ -14,4 +17,9 @@ const server = app.listen( port, () => {
     else console.log( 'Error running the server' );
 } );
 
-app.use( userRouter )
+app.use( teacherRouter )
+app.use( schoolRouter )
+app.use( studentRouter )
+app.use( parentRouter )
+
+// TESTAR ENDPOINT DE CADASTRAR FAMILIAR
