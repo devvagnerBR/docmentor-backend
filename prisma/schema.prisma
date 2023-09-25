@@ -14,7 +14,7 @@ model School {
   name String @unique
   cep Int
   created_at DateTime @default(now())
-  teachers Teacher[] 
+
   
   @@map("schools")
 }
@@ -26,16 +26,14 @@ model Teacher {
   name String 
   email String @unique
   password String
+  username String @unique
   job String?
   phone_number Int? @unique
   profile_img String? @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
   created_at DateTime @default(now())
-
+  updated_at DateTime @default(now())
   students Student[]
   
-  school_id String
-  school School @relation(fields: [school_id],references: [id])
-
   @@map("teachers")
 }
 
