@@ -4,9 +4,12 @@ import { ParentData } from '../data/parent-data';
 import { ParentBusiness } from '../business/parent-business';
 import { ParentValidations } from '../utils/validations/parent-validations';
 import { TeacherValidations } from '../utils/validations/teacher-validations';
-import { teacherData } from '../data/teacher-data';
+
 import express from 'express';
 import { ParentController } from '../controller/parent-controller';
+import { TeacherData } from '../data/teacher-data';
+import { IdGenerator } from '../services/id-generator';
+import { StudentData } from '../data/student-data';
 
 
 const parentBusiness: ParentBusiness = new ParentBusiness(
@@ -15,8 +18,11 @@ const parentBusiness: ParentBusiness = new ParentBusiness(
     new TeacherValidations(
         new Authenticator,
         new HashManager,
-        new teacherData
-    )
+        new TeacherData,
+    ),
+    new TeacherData,
+    new IdGenerator,
+    new StudentData
 );
 
 const parentController: ParentController = new ParentController( parentBusiness );

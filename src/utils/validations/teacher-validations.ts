@@ -1,4 +1,5 @@
-import { teacherData } from '../../data/teacher-data';
+
+import { TeacherData } from '../../data/teacher-data';
 import { CustomError } from '../../models/custom-error';
 import { Authenticator } from '../../services/authenticator';
 import { HashManager } from '../../services/hash-manager';
@@ -10,7 +11,7 @@ export class TeacherValidations {
     constructor(
         private authenticator: Authenticator,
         private hashManager: HashManager,
-        private userData: teacherData
+        private teacherData: TeacherData
     ) { }
 
     username = async ( username: string ) => {
@@ -20,7 +21,7 @@ export class TeacherValidations {
         if ( username.length < 3 ) throw new CustomError( 400, "username field must be greater than 3" );
         if ( typeof username !== "string" ) throw new CustomError( 404, "fields needs to be a string" );
 
-        const user = await this.userData.getUserByUsername( username );
+        const user = await this.teacherData.getUserByUsername( username );
         if ( user ) throw new CustomError( 409, "username already exists" );
 
         return user;
@@ -33,7 +34,7 @@ export class TeacherValidations {
         if ( !email.includes( "@" ) ) throw new CustomError( 404, "invalid email" );
         if ( typeof email !== "string" ) throw new CustomError( 404, "fields needs to be a string" );
 
-        const user = await this.userData.getUserByEmail( email );
+        const user = await this.teacherData.getUserByEmail( email );
         if ( user ) throw new CustomError( 409, "email already exists" );
 
         return user;
@@ -78,7 +79,7 @@ export class TeacherValidations {
 
         // if ( phone_number ) await this.phone_number( phone_number );
         // if ( profile_img ) await this.profile_img( profile_img );
-      
+
 
     }
 

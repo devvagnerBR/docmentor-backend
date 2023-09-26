@@ -46,8 +46,8 @@ CREATE TABLE "parents" (
     "id" TEXT NOT NULL,
     "father_name" TEXT,
     "mother_name" TEXT,
-    "phone_number1" INTEGER NOT NULL,
-    "phone_number2" INTEGER,
+    "phone_number1" BIGINT NOT NULL,
+    "phone_number2" BIGINT,
     "address" TEXT NOT NULL,
 
     CONSTRAINT "parents_pkey" PRIMARY KEY ("id")
@@ -92,6 +92,12 @@ CREATE UNIQUE INDEX "teachers_username_key" ON "teachers"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "teachers_phone_number_key" ON "teachers"("phone_number");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "parents_phone_number1_key" ON "parents"("phone_number1");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "parents_address_key" ON "parents"("address");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_SchoolToTeacher_AB_unique" ON "_SchoolToTeacher"("A", "B");

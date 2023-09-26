@@ -1,6 +1,7 @@
 import { teacherBusiness } from "../business/teacher-business";
 import { teacherController } from "../controller/teacher-controller";
-import { teacherData } from "../data/teacher-data";
+import { TeacherData } from "../data/teacher-data";
+
 import { Authenticator } from "../services/authenticator";
 import { HashManager } from "../services/hash-manager";
 import { IdGenerator } from "../services/id-generator";
@@ -9,9 +10,9 @@ import express from 'express';
 
 
 const userBusiness: teacherBusiness = new teacherBusiness(
-    new teacherData,
+    new TeacherData,
     new HashManager,
-    new TeacherValidations( new Authenticator, new HashManager, new teacherData ),
+    new TeacherValidations( new Authenticator, new HashManager, new TeacherData ),
     new IdGenerator,
     new Authenticator
 );

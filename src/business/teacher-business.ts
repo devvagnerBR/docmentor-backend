@@ -1,4 +1,5 @@
-import { teacherData } from '../data/teacher-data';
+
+import { TeacherData } from '../data/teacher-data';
 import { CustomError } from '../models/custom-error';
 import { UserModel } from '../models/teacher-model';
 import { Authenticator } from '../services/authenticator';
@@ -10,7 +11,7 @@ import { TeacherValidations } from '../utils/validations/teacher-validations';
 export class teacherBusiness {
 
     constructor(
-        private teacherData: teacherData,
+        private teacherData: TeacherData,
         private hashManager: HashManager,
         private teacherValidations: TeacherValidations,
         private idGenerator: IdGenerator,

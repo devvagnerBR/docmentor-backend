@@ -83,9 +83,9 @@ model Parent {
   id String @id
   father_name String?
   mother_name String?
-  phone_number1 Int 
-  phone_number2 Int?
-  address  String
+  phone_number1 BigInt  @unique
+  phone_number2 BigInt?
+  address  String @unique
 
   students Student[]
   

@@ -52,6 +52,42 @@ export class StudentData {
         }
     }
 
-    
+    getStudentById = async ( id: string ) => {
+
+
+        try {
+
+            const student = await PRISMA_CLIENT.student.findUnique( {
+                where: {
+                    id
+                }
+            } );
+
+            return student;
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
+
+    getStudentParents = async ( id: string ) => {
+
+
+        try {
+
+            const parents = await PRISMA_CLIENT.student.findUnique( {
+                where: {
+                    id
+                },
+                select: {
+                    parents: true
+                }
+            } );
+
+            return parents!['parents'];
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
 
 }

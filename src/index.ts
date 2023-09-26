@@ -22,4 +22,3 @@ app.use( schoolRouter )
 app.use( studentRouter )
 app.use( parentRouter )
 
-// TESTAR ENDPOINT DE CADASTRAR FAMILIAR

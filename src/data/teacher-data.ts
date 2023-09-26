@@ -2,7 +2,7 @@ import { ServiceDays } from "@prisma/client";
 import { PRISMA_CLIENT } from "../database/prisma";
 import { UserModel } from "../models/teacher-model";
 
-export class teacherData {
+export class TeacherData {
 
     createAccount = async ( user: UserModel ) => {
 
@@ -101,8 +101,6 @@ export class teacherData {
                     job: true,
                     phone_number: true,
                     created_at: true,
-                    // school_id: true,
-
 
                 }
             } );

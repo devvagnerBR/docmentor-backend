@@ -17,7 +17,7 @@ export class ParentController {
             const token = req.headers.authorization as string;
             const studentId = req.params.id;
 
-            await this.parentBusiness.registerParent( new ParentModel( phone_number1, phone_number2, address, mother_name, father_name ), token, studentId );
+            await this.parentBusiness.registerParent(  phone_number1, phone_number2, address, mother_name, father_name , studentId, token );
             res.status( 200 ).send( "Parent registered successfully" )
 
 
