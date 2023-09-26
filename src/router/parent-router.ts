@@ -30,3 +30,4 @@ const parentController: ParentController = new ParentController( parentBusiness 
 export const parentRouter = express.Router();
 
 parentRouter.post( "/parent/:id", parentController.registerParent );
+parentRouter.put( "/parent/:parentId", parentController.updateParent );

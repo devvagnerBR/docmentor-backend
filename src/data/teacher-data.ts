@@ -15,12 +15,6 @@ export class TeacherData {
                     email: user.getEmail(),
                     username: user.getUsername(),
                     password: user.getPassword(),
-                    // schools: {
-                    //     connect: {
-                    //         id: process.env.DEFAULT_SCHOOL_ID
-                    //     }
-                    // }
-
                 }
             } );
 
@@ -157,5 +151,26 @@ export class TeacherData {
             throw new Error( error.message );
         }
     }
+
+
+    getTeacherByPhoneNumber = async ( phone_number: number ) => {
+
+        try {
+
+            const user = await PRISMA_CLIENT.teacher.findUnique( {
+                where: {
+                    phone_number
+                }
+            } );
+
+            return user;
+
+            
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+
+    }
+
 
 }

@@ -38,7 +38,7 @@ export class ParentData {
 
             const user = await PRISMA_CLIENT.parent.findUnique( {
                 where: {
-                    phone_number1: phoneNumber, 
+                    phone_number1: phoneNumber,
                 }
             } );
 
@@ -68,6 +68,70 @@ export class ParentData {
         }
     }
 
+
+
+    
+    getParentById = async ( parentId: string ) => {
+
+        try {
+
+            const user = await PRISMA_CLIENT.parent.findUnique( {
+                where: {
+                    id: parentId
+                }
+            } );
+
+            return user
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
+
+    updateParent = async ( parentId: string, phone_number1?: number, phone_number2?: number, address?: string, mother_name?: string, father_name?: string ) => {
+
+        try {
+
+            await PRISMA_CLIENT.parent.update( {
+                where: {
+                    id: parentId
+                },
+                data: {
+                    phone_number1: phone_number1 || undefined,
+                    phone_number2: phone_number2 || undefined,
+                    address: address || undefined,
+                    mother_name: mother_name || undefined,
+                    father_name: father_name || undefined,
+                }
+            } );
+
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
+
+    getStudentParents = async ( studentId: string ) => {
+
+        try {
+
+            const parents = await PRISMA_CLIENT.parent.findMany( {
+                where: {
+                    students: {
+                        some: {
+                            id: studentId
+                        }
+                    }
+                }
+            } );
+
+            return parents
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+
+    }
 
 
 }

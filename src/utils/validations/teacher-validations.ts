@@ -67,6 +67,13 @@ export class TeacherValidations {
 
     }
 
+    phoneNumber = async ( phone_number: number ) => {
+
+        if ( !phone_number ) throw new CustomError( 404, "fill in all fields" );
+        const user  = await this.teacherData.getTeacherByPhoneNumber( phone_number );
+        if ( user ) throw new CustomError( 409, "phone number already exists" );
+
+    }
 
     updateTeacher = async ( profile_img?: string, name?: string, email?: string, job?: string, phone_number?: number, username?: string ) => {
 
@@ -75,11 +82,7 @@ export class TeacherValidations {
         if ( name ) await this.name( name );
         if ( email ) await this.email( email );
         if ( username ) await this.username( username );
-
-
-        // if ( phone_number ) await this.phone_number( phone_number );
-        // if ( profile_img ) await this.profile_img( profile_img );
-
+        if ( phone_number ) await this.phoneNumber( phone_number )
 
     }
 
