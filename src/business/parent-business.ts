@@ -19,7 +19,7 @@ export class ParentBusiness {
     ) { }
 
 
-    registerParent = async ( phone_number1: number, phone_number2: number, address: string, mother_name: string, father_name: string, studentId: string, token: string ) => {
+    registerParent = async ( phone_number1: string, phone_number2: string, address: string, mother_name: string, father_name: string, studentId: string, token: string ) => {
 
         try {
 
@@ -52,7 +52,7 @@ export class ParentBusiness {
         }
     }
 
-    updateParent = async ( token: string, parentId: string, phone_number1?: number, phone_number2?: number, address?: string, mother_name?: string, father_name?: string ) => {
+    updateParent = async ( token: string, parentId: string, phone_number1?: string, phone_number2?: string, address?: string, mother_name?: string, father_name?: string ) => {
 
         try {
 

@@ -28,7 +28,7 @@ model Teacher {
   password String
   username String @unique
   job String?
-  phone_number BigInt? @unique
+  phone_number String? @unique
   profile_img String? @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
   created_at DateTime @default(now())
 
@@ -83,8 +83,8 @@ model Parent {
   id String @id
   father_name String?
   mother_name String?
-  phone_number1 BigInt  @unique
-  phone_number2 BigInt?
+  phone_number1 String  @unique
+  phone_number2 String?
   address  String @unique
 
   students Student[]

@@ -67,7 +67,7 @@ export class TeacherValidations {
 
     }
 
-    phoneNumber = async ( phone_number: number ) => {
+    phoneNumber = async ( phone_number: string ) => {
 
         if ( !phone_number ) throw new CustomError( 404, "fill in all fields" );
         const user  = await this.teacherData.getTeacherByPhoneNumber( phone_number );
@@ -75,7 +75,7 @@ export class TeacherValidations {
 
     }
 
-    updateTeacher = async ( profile_img?: string, name?: string, email?: string, job?: string, phone_number?: number, username?: string ) => {
+    updateTeacher = async ( profile_img?: string, name?: string, email?: string, job?: string, phone_number?: string, username?: string ) => {
 
         if ( !profile_img && !name && !email && !job && !phone_number && !username ) throw new CustomError( 404, "fill in at least one field" );
 

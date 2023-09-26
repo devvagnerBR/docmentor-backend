@@ -8,8 +8,8 @@ export class ParentModel {
 
         private id: string,
         private address: string,
-        private phone_number1: number,
-        private phone_number2?: number | undefined,
+        private phone_number1: string,
+        private phone_number2?: string | undefined,
         private mother_name?: string | undefined,
         private father_name?: string | undefined,
 

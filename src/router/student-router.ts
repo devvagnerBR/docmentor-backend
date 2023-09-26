@@ -18,7 +18,8 @@ const studentBusiness: StudentBusiness = new StudentBusiness(
     new TeacherValidations( new Authenticator, new HashManager, new TeacherData ),
     new StudentValidations( new StudentData ),
     new SchoolValidations( new SchoolData ),
-    new IdGenerator
+    new IdGenerator,
+    new TeacherData
 );
 
 const studentController: StudentController = new StudentController( studentBusiness );
@@ -26,3 +27,4 @@ const studentController: StudentController = new StudentController( studentBusin
 export const studentRouter = express.Router();
 
 studentRouter.post( "/register/:school_id", studentController.registerStudent );
+studentRouter.get( "/student/:studentId", studentController.getStudentById );

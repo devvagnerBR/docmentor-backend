@@ -60,6 +60,22 @@ export class StudentData {
             const student = await PRISMA_CLIENT.student.findUnique( {
                 where: {
                     id
+                },
+                select:{
+                    id: true,
+                    name: true,
+                    birthday: true,
+                    school_grade: true,
+                    service_days: true,
+                    parents: true,
+                    teacher: true,
+                    school: true,
+                    reports: true,
+                    status: true,
+                    created_at: true,
+                    updated_at: true,
+                    teacher_id: true,
+                    
                 }
             } );
 
@@ -80,7 +96,7 @@ export class StudentData {
                     id
                 },
                 select: {
-                    parents: true
+                    parents: true,
                 }
             } );
 

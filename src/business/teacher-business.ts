@@ -86,7 +86,7 @@ export class teacherBusiness {
         try {
 
             const tokenData = await this.teacherValidations.token( token );
-            const students = await this.teacherData.getTeacherStudents( tokenData.id );
+            const students = await this.teacherData.getStudents( tokenData.id );
 
             return students;
 
@@ -96,7 +96,7 @@ export class teacherBusiness {
 
     }
 
-    updateTeacher = async ( token: string, profile_img?: string, name?: string, email?: string, job?: string, phone_number?: number, username?: string ) => {
+    updateTeacher = async ( token: string, profile_img?: string, name?: string, email?: string, job?: string, phone_number?: string, username?: string ) => {
 
         try {
 

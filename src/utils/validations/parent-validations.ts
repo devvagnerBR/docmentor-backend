@@ -10,11 +10,11 @@ export class ParentValidations {
         if ( typeof parent.getAddress() !== "string" ) throw new CustomError( 400, "Address must be a string" );
 
         if ( !parent.getPhoneNumber1() ) throw new CustomError( 400, "Main phone number is required" );
-        if ( typeof parent.getPhoneNumber1() !== "number" ) throw new CustomError( 400, "Main phone number must be a number" );
+        if ( typeof parent.getPhoneNumber1() !== "string" ) throw new CustomError( 400, "Main phone number must be a number" );
 
         if ( parent.getPhoneNumber2() ) {
-            if ( typeof parent.getPhoneNumber2() !== "number" ) throw new CustomError( 400, "Secondary phone number must be a number" );
-            if ( typeof parent.getPhoneNumber2() !== "number" ) throw new CustomError( 400, "Secondary phone number must be a number" );
+            if ( typeof parent.getPhoneNumber2() !== "string" ) throw new CustomError( 400, "Secondary phone number must be a string" );
+            if ( typeof parent.getPhoneNumber2() !== "string" ) throw new CustomError( 400, "Secondary phone number must be a string" );
         }
 
         if ( parent.getMotherName() ) {
@@ -43,11 +43,11 @@ export class ParentValidations {
         }
 
         if ( parent.getPhoneNumber1() ) {
-            if ( typeof parent.getPhoneNumber1() !== "number" ) throw new CustomError( 400, "Main phone number must be a number" );
+            if ( typeof parent.getPhoneNumber1() !== "string" ) throw new CustomError( 400, "Main phone number must be a string" );
         }
 
         if ( parent.getPhoneNumber2() ) {
-            if ( typeof parent.getPhoneNumber2() !== "number" ) throw new CustomError( 400, "Secondary phone number must be a number" );
+            if ( typeof parent.getPhoneNumber2() !== "string" ) throw new CustomError( 400, "Secondary phone number must be a string" );
         }
 
         if ( parent.getMotherName() ) {

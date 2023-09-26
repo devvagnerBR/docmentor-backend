@@ -32,7 +32,7 @@ export class ParentData {
         }
     }
 
-    getParentByPhoneNumber = async ( phoneNumber: number ) => {
+    getParentByPhoneNumber = async ( phoneNumber: string ) => {
 
         try {
 
@@ -70,7 +70,7 @@ export class ParentData {
 
 
 
-    
+
     getParentById = async ( parentId: string ) => {
 
         try {
@@ -88,7 +88,7 @@ export class ParentData {
         }
     }
 
-    updateParent = async ( parentId: string, phone_number1?: number, phone_number2?: number, address?: string, mother_name?: string, father_name?: string ) => {
+    updateParent = async ( parentId: string, phone_number1?: string, phone_number2?: string, address?: string, mother_name?: string, father_name?: string ) => {
 
         try {
 

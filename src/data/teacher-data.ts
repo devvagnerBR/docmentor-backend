@@ -1,4 +1,3 @@
-import { ServiceDays } from "@prisma/client";
 import { PRISMA_CLIENT } from "../database/prisma";
 import { UserModel } from "../models/teacher-model";
 
@@ -106,17 +105,18 @@ export class TeacherData {
         }
     }
 
-    getTeacherStudents = async ( token: string ) => {
+    getStudents = async ( token: string ) => {
 
         try {
 
             const students = await PRISMA_CLIENT.teacher.findMany( {
                 where: {
                     id: token
-                },
-                select: {
+                }, include: {
                     students: true,
-                }
+                },orderBy: {
+                    created_at: 'desc'
+                },
             } )
 
             return students[0].students;
@@ -128,7 +128,7 @@ export class TeacherData {
     }
 
 
-    updateTeacher = async ( token: string, profile_img?: string, name?: string, email?: string, job?: string, phone_number?: number, username?: string ) => {
+    updateTeacher = async ( token: string, profile_img?: string, name?: string, email?: string, job?: string, phone_number?: string, username?: string ) => {
 
         try {
 
@@ -153,7 +153,7 @@ export class TeacherData {
     }
 
 
-    getTeacherByPhoneNumber = async ( phone_number: number ) => {
+    getTeacherByPhoneNumber = async ( phone_number: string ) => {
 
         try {
 
@@ -165,7 +165,7 @@ export class TeacherData {
 
             return user;
 
-            
+
         } catch ( error: any ) {
             throw new Error( error.message );
         }

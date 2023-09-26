@@ -29,7 +29,25 @@ export class StudentController {
                 res.status( 404 ).send( error.message );
             }
         }
+    }
 
+    getStudentById = async ( req: Request, res: Response ) => {
+
+        try {
+
+            const { studentId } = req.params;
+            const token = req.headers.authorization as string;
+
+            const student = await this.studentBusiness.getStudentById( studentId, token );
+            res.status( 200 ).send( student );
+
+        } catch ( error: any ) {
+            if ( error instanceof CustomError ) {
+                res.status( 404 ).send( error.message );
+            } else {
+                res.status( 404 ).send( error.message );
+            }
+        }
 
     }
 
