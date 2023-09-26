@@ -4,6 +4,7 @@ import { teacherRouter } from './router/teacher-router';
 import { schoolRouter } from './router/school-router';
 import { studentRouter } from './router/student-router';
 import { parentRouter } from './router/parent-router';
+import { reportRouter } from './router/report-router';
 
 
 const port = process.env.PORT || 4242;
@@ -21,4 +22,4 @@ app.use( teacherRouter )
 app.use( schoolRouter )
 app.use( studentRouter )
 app.use( parentRouter )
-
+app.use( reportRouter )
