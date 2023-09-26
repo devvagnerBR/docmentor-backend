@@ -68,4 +68,36 @@ export class SchoolData {
 
     }
 
+
+    getAllSchools = async () => {
+
+        try {
+
+            const schools = await PRISMA_CLIENT.school.findMany()
+
+            return schools;
+
+        } catch ( error: any ) {
+            throw new Error( error.message )
+        }
+    }
+
+    updateSchool = async ( id: string, name?: string, cep?: string ) => {
+
+        try {
+
+            await PRISMA_CLIENT.school.update( {
+                where: {
+                    id
+                },
+                data: {
+                    name: name || undefined,
+                    cep: cep || undefined
+                }
+            } )
+
+        } catch ( error: any ) {
+            throw new Error( error.message )
+        }
+    }
 }

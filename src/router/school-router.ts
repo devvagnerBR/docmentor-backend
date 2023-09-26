@@ -15,10 +15,13 @@ const schoolBusiness: SchoolBusiness = new SchoolBusiness(
     new SchoolData,
     new SchoolValidations( new SchoolData ),
     new IdGenerator,
-    new TeacherValidations( new Authenticator, new HashManager, new TeacherData )
+    new TeacherValidations( new Authenticator, new HashManager, new TeacherData ),
+    new TeacherData
 );
 
 const schoolController: SchoolController = new SchoolController( schoolBusiness );
 export const schoolRouter = express.Router();
 
 schoolRouter.post( "/school", schoolController.createSchool );
+schoolRouter.get( "/school", schoolController.getAllSchools );
+schoolRouter.put( "/school/:schoolId", schoolController.updateSchool );
