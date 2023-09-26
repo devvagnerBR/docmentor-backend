@@ -53,27 +53,46 @@ export class SchoolBusiness {
     }
 
     updateSchool = async ( token: string, schoolId: string, name?: string, cep?: string ) => {
-            
-            try {
-    
-                
-                const tokenData = await this.teacherValidations.token( token );
-                const user = await this.teacherData.getPrivateUserById( tokenData.id );
-                if ( !user ) throw new CustomError( 404, "user not found" );
 
-                if(!name && !cep) throw new CustomError( 400, "You must provide at least one field to update")
-    
-                const school = await this.schoolData.getSchoolById( schoolId );
-                if ( !school ) throw new CustomError( 404, "school not found" );
-    
-                if ( name ) await this.schoolValidations.schoolName( name );
-                if ( cep ) await this.schoolValidations.cep( cep );
-    
-                await this.schoolData.updateSchool( schoolId, name, cep );
-    
-            } catch ( error: any ) {
-                throw new CustomError( error.statusCode, error.message );
-            }
+        try {
+
+
+            const tokenData = await this.teacherValidations.token( token );
+            const user = await this.teacherData.getPrivateUserById( tokenData.id );
+            if ( !user ) throw new CustomError( 404, "user not found" );
+
+            if ( !name && !cep ) throw new CustomError( 400, "You must provide at least one field to update" )
+
+            const school = await this.schoolData.getSchoolById( schoolId );
+            if ( !school ) throw new CustomError( 404, "school not found" );
+
+            if ( name ) await this.schoolValidations.schoolName( name );
+            if ( cep ) await this.schoolValidations.cep( cep );
+
+            await this.schoolData.updateSchool( schoolId, name, cep );
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
+    }
+
+    deleteSchool = async ( token: string, schoolId: string ) => {
+
+        try {
+
+            const tokenData = await this.teacherValidations.token( token );
+            const user = await this.teacherData.getPrivateUserById( tokenData.id );
+            if ( !user ) throw new CustomError( 404, "user not found" );
+
+            const school = await this.schoolData.getSchoolById( schoolId );
+            if ( !school ) throw new CustomError( 404, "school not found" );
+
+            await this.schoolData.deleteSchool( schoolId );
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
+
     }
 
 }

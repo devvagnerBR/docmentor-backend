@@ -100,4 +100,20 @@ export class SchoolData {
             throw new Error( error.message )
         }
     }
+
+    deleteSchool = async ( id: string ) => {
+
+        try {
+
+            await PRISMA_CLIENT.school.delete( {
+                where: {
+                    id
+                }
+            } )
+
+        } catch ( error: any ) {
+            throw new Error( error.message )
+        }
+    }
+    
 }

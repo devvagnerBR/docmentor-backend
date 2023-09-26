@@ -25,3 +25,4 @@ export const schoolRouter = express.Router();
 schoolRouter.post( "/school", schoolController.createSchool );
 schoolRouter.get( "/school", schoolController.getAllSchools );
 schoolRouter.put( "/school/:schoolId", schoolController.updateSchool );
+schoolRouter.delete( "/school/:schoolId", schoolController.deleteSchool );

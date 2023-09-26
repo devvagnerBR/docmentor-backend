@@ -52,4 +52,19 @@ export class SchoolController {
             res.status( 404 ).send( error.message );
         }
     }
+
+    deleteSchool = async ( req: Request, res: Response ) => {
+            
+            try {
+    
+                const token = req.headers.authorization as string;
+                const schoolId = req.params.schoolId;
+    
+                await this.schoolBusiness.deleteSchool( token, schoolId );
+                res.status( 200 ).send( "School deleted successfully" )
+    
+            } catch ( error: any ) {
+                res.status( 404 ).send( error.message );
+            }
+    }
 }
