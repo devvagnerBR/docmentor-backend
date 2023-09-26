@@ -113,8 +113,12 @@ export class TeacherData {
                 where: {
                     id: token
                 }, include: {
-                    students: true,
-                },orderBy: {
+                    students: {
+                        where: {
+                            status: true
+                        },
+                    }
+                }, orderBy: {
                     created_at: 'desc'
                 },
             } )

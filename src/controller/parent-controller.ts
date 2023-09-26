@@ -44,5 +44,35 @@ export class ParentController {
         }
     }
 
+    getParentByStudentId = async ( req: Request, res: Response ) => {
+
+        try {
+
+            const token = req.headers.authorization as string;
+            const studentId = req.params.studentId;
+
+            const parents = await this.parentBusiness.getParentByStudentId( token, studentId );
+            res.status( 200 ).send( parents );
+
+        } catch ( error: any ) {
+            res.status( 404 ).send( error.message );
+        }
+
+    }
+
+    deleteParent = async ( req: Request, res: Response ) => {
+            
+            try {
+    
+                const token = req.headers.authorization as string;
+                const parentId = req.params.parentId;
+    
+                await this.parentBusiness.deleteParent( token, parentId );
+                res.status( 200 ).send( "Parent deleted successfully" );
+    
+            } catch ( error: any ) {
+                res.status( 404 ).send( error.message );
+            }
+    }
 
 }

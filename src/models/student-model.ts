@@ -12,11 +12,11 @@ export class StudentModel {
 
     constructor(
 
-        private id: string,
-        private name: string,
-        private birthday: string,
-        private school_grade: string,
-        private service_days: ServiceDays[]
+        private id: string | undefined,
+        private name: string | undefined,
+        private birthday: string | undefined,
+        private school_grade: string | undefined,
+        private service_days: ServiceDays[] | undefined
 
 
     ) { }

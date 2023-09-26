@@ -28,3 +28,5 @@ export const studentRouter = express.Router();
 
 studentRouter.post( "/register/:school_id", studentController.registerStudent );
 studentRouter.get( "/student/:studentId", studentController.getStudentById );
+studentRouter.put( "/update/:studentId", studentController.updateStudent );
+studentRouter.delete( "/student/:studentId", studentController.deleteStudent );

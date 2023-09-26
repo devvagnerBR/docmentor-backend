@@ -58,14 +58,57 @@ export class StudentBusiness {
             const student = await this.studentData.getStudentById( studentId );
             if ( !student ) throw new CustomError( 404, "student not found" );
             if ( student.teacher_id !== teacher.id ) throw new CustomError( 401, "you are not allowed to access this information" );
-            
+
             return student;
 
         } catch ( error: any ) {
             throw new CustomError( error.statusCode, error.message );
         }
+    }
 
+    updateStudent = async ( studentId: string, token: string, student: { name?: string, birthday?: string, school_year?: string, service_days?: ServiceDays[] } ) => {
 
+        try {
+
+            const tokenData = await this.teacherValidations.token( token );
+            const teacher = await this.teacherData.getPrivateUserById( tokenData.id );
+            if ( !teacher ) throw new CustomError( 404, "teacher not found" );
+
+            const studentToUpdate = await this.studentData.getStudentById( studentId );
+            if ( !studentToUpdate ) throw new CustomError( 404, "student not found" );
+            if ( studentToUpdate.teacher_id !== teacher.id ) throw new CustomError( 401, "you are not allowed to access this information" );
+
+            if ( !student.name && !student.birthday && !student.school_year && !student.service_days ) throw new CustomError( 400, "you must provide at least one field to update" )
+            if ( student.name ) await this.studentValidations.name( student.name );
+            if ( student.birthday ) await this.studentValidations.birthday( student.birthday );
+            if ( student.school_year ) await this.studentValidations.schoolGrade( student.school_year );
+            if ( student.service_days ) await this.studentValidations.serviceDays( student.service_days );
+
+            await this.studentData.updateStudent( studentId, new StudentModel( studentId, student.name, student.birthday, student.school_year, student.service_days ) );
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
+
+    }
+    
+    deleteStudent = async ( studentId: string, token: string ) => {
+
+        try {
+
+            const tokenData = await this.teacherValidations.token( token );
+            const teacher = await this.teacherData.getPrivateUserById( tokenData.id );
+            if ( !teacher ) throw new CustomError( 404, "teacher not found" );
+
+            const student = await this.studentData.getStudentById( studentId );
+            if ( !student ) throw new CustomError( 404, "student not found" );
+            if ( student.teacher_id !== teacher.id ) throw new CustomError( 401, "you are not allowed to access this information" );
+
+            await this.studentData.deleteStudent( studentId );
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
     }
 
 

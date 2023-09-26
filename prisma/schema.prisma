@@ -65,7 +65,7 @@ model Student {
   teacher Teacher @relation(fields: [teacher_id],references: [id])
 
   // parents_id String
-  // parents Parent @relation(fields: [parents_id], references: [id])
+ //  parents Parent @relation(fields: [parents_id], references: [id])
   parents Parent[]
   reports Report[]
 

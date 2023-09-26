@@ -133,5 +133,40 @@ export class ParentData {
 
     }
 
+    getParentByStudentId = async ( studentId: string ) => {
+
+        try {
+
+            const parent = await PRISMA_CLIENT.parent.findFirst( {
+                where: {
+                    students: {
+                        some: {
+                            id: studentId
+                        }
+                    }
+                }
+            } );
+
+            return parent
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
+
+    deleteParent = async ( parentId: string ) => {
+            
+            try {
+    
+                await PRISMA_CLIENT.parent.delete( {
+                    where: {
+                        id: parentId
+                    }
+                } );
+    
+            } catch ( error: any ) {
+                throw new Error( error.message );
+            }
+    }
 
 }

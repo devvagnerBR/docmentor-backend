@@ -31,3 +31,5 @@ export const parentRouter = express.Router();
 
 parentRouter.post( "/parent/:id", parentController.registerParent );
 parentRouter.put( "/parent/:parentId", parentController.updateParent );
+parentRouter.get( "/parent/:studentId", parentController.getParentByStudentId );
+parentRouter.delete( "/parent/:parentId", parentController.deleteParent );

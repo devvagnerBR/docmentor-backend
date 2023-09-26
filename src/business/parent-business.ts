@@ -71,6 +71,44 @@ export class ParentBusiness {
         } catch ( error: any ) {
             throw new CustomError( error.statusCode, error.message );
         }
+    }
 
+    getParentByStudentId = async ( token: string, studentId: string ) => {
+
+        try {
+
+            const tokenData = await this.teacherValidations.token( token );
+            const teacher = await this.teacherData.getPrivateUserById( tokenData.id );
+            if ( !teacher ) throw new CustomError( 404, "Teacher not found" );
+        
+            const student = await this.studentData.getStudentById( studentId );
+            if ( !student ) throw new CustomError( 404, "Student not found" );
+
+            const parents = await this.parentData.getStudentParents( studentId );
+            if ( !parents ) throw new CustomError( 404, "Parents not found" );
+
+            return parents
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
+    }
+
+    deleteParent = async ( token: string, parentId: string ) => {
+                
+            try {
+    
+                const tokenData = await this.teacherValidations.token( token );
+                const teacher = await this.teacherData.getPrivateUserById( tokenData.id );
+                if ( !teacher ) throw new CustomError( 404, "Teacher not found" );
+    
+                const parent = await this.parentData.getParentById( parentId );
+                if ( !parent ) throw new CustomError( 404, "Parent not found" );
+
+                await this.parentData.deleteParent( parentId );
+    
+            } catch ( error: any ) {
+                throw new CustomError( error.statusCode, error.message );
+            }
     }
 }
