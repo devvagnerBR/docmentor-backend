@@ -2,3 +2,5 @@ node_modules
 .env
 .vscode/
 notes.md
+.vercel
+dist
