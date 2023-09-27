@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { CustomError } from "../models/custom-error";
 import { teacherBusiness } from '../business/teacher-business';
+import { File } from "../models/file-model";
 
 export class teacherController {
 
@@ -104,6 +105,26 @@ export class teacherController {
                 res.status( 404 ).send( error.message );
             }
         }
+    }
+
+    updateProfileImage = async ( req: Request, res: Response ) => {
+
+        try {
+
+            const profileImage = req.file as File;
+            const token = req.headers.authorization as string;
+
+            await this.teacherBusiness.updateProfileImage( token, profileImage );
+            res.status( 200 ).send( { message: "profile image updated successfully" } );
+
+        } catch ( error: any ) {
+            if ( error instanceof CustomError ) {
+                res.status( 404 ).send( error.message );
+            } else {
+                res.status( 404 ).send( error.message );
+            }
+        }
+
     }
 
 

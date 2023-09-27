@@ -1,6 +1,7 @@
 
 import { TeacherData } from '../../data/teacher-data';
 import { CustomError } from '../../models/custom-error';
+import { File } from '../../models/file-model';
 import { Authenticator } from '../../services/authenticator';
 import { HashManager } from '../../services/hash-manager';
 import { AuthenticationData } from '../../types/authenticator-type';
@@ -11,7 +12,8 @@ export class TeacherValidations {
     constructor(
         private authenticator: Authenticator,
         private hashManager: HashManager,
-        private teacherData: TeacherData
+        private teacherData: TeacherData,
+
     ) { }
 
     username = async ( username: string ) => {
@@ -70,7 +72,7 @@ export class TeacherValidations {
     phoneNumber = async ( phone_number: string ) => {
 
         if ( !phone_number ) throw new CustomError( 404, "fill in all fields" );
-        const user  = await this.teacherData.getTeacherByPhoneNumber( phone_number );
+        const user = await this.teacherData.getTeacherByPhoneNumber( phone_number );
         if ( user ) throw new CustomError( 409, "phone number already exists" );
 
     }
@@ -83,6 +85,36 @@ export class TeacherValidations {
         if ( email ) await this.email( email );
         if ( username ) await this.username( username );
         if ( phone_number ) await this.phoneNumber( phone_number )
+
+    }
+
+    teacher = async ( token: string ) => {
+
+        const user = await this.teacherData.getPrivateUserById( token );
+        if ( !user ) throw new CustomError( 404, "user not found" );
+
+        return user;
+    }
+
+    profileImage = async ( profile_img: File ) => {
+
+        if ( !profile_img ) throw new CustomError( 404, "fill in all fields" );
+        if ( !profile_img.mimetype.includes( "image" ) ) throw new CustomError( 404, "invalid file" );
+        if ( profile_img.size > 5000000 ) throw new CustomError( 404, "image must be less than 5MB" );
+        if ( typeof profile_img !== "object" ) throw new CustomError( 404, "fields needs to be a object" );
+        if ( !profile_img.buffer ) throw new CustomError( 404, "invalid file" );
+        if ( !profile_img.originalname ) throw new CustomError( 404, "invalid file" );
+        if ( !profile_img.encoding ) throw new CustomError( 404, "invalid file" );
+        if ( !profile_img.mimetype ) throw new CustomError( 404, "invalid file" );
+        if ( !profile_img.size ) throw new CustomError( 404, "invalid file" )
+
+    }
+
+    URLImage = async ( url: string ) => {
+
+        if ( !url ) throw new CustomError( 404, "fill in all fields" );
+        if ( typeof url !== "string" ) throw new CustomError( 404, "fields needs to be a string" );
+        if ( !url.includes( "https://" ) ) throw new CustomError( 404, "invalid url" );
 
     }
 

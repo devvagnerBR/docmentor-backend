@@ -176,5 +176,21 @@ export class TeacherData {
 
     }
 
+    updateProfileImage = async ( token: string, profile_img: string ) => {
+
+        try {
+            await PRISMA_CLIENT.teacher.update( {
+                where: {
+                    id: token
+                },
+                data: {
+                    profile_img
+                }
+            } );
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
+
 
 }

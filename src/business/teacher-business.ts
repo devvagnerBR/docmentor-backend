@@ -1,11 +1,14 @@
 
 import { TeacherData } from '../data/teacher-data';
 import { CustomError } from '../models/custom-error';
+import { File } from '../models/file-model';
 import { UserModel } from '../models/teacher-model';
 import { Authenticator } from '../services/authenticator';
 import { HashManager } from '../services/hash-manager';
 import { IdGenerator } from '../services/id-generator';
+import { Storage } from '../services/storage';
 import { TeacherValidations } from '../utils/validations/teacher-validations';
+import { storage } from '../database/firestore';
 
 
 export class teacherBusiness {
@@ -15,7 +18,8 @@ export class teacherBusiness {
         private hashManager: HashManager,
         private teacherValidations: TeacherValidations,
         private idGenerator: IdGenerator,
-        private authenticator: Authenticator
+        private authenticator: Authenticator,
+        private storage: Storage
     ) { }
 
     createAccount = async ( name: string, email: string, password: string, username: string ) => {
@@ -111,6 +115,26 @@ export class teacherBusiness {
         } catch ( error: any ) {
             throw new CustomError( error.statusCode, error.message );
         }
+
+    }
+
+    updateProfileImage = async ( token: string, profile_img: File ) => {
+
+        try {
+
+
+            const tokenData = await this.teacherValidations.token( token );
+            await this.teacherValidations.teacher( tokenData.id );
+            await this.teacherValidations.profileImage( profile_img );
+
+            const URL = await this.storage.createImageUrl( profile_img );
+            await this.teacherValidations.URLImage( URL );
+            await this.teacherData.updateProfileImage( tokenData.id, URL );
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
+
 
     }
 
