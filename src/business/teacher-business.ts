@@ -134,8 +134,30 @@ export class teacherBusiness {
         } catch ( error: any ) {
             throw new CustomError( error.statusCode, error.message );
         }
+    }
 
+    changePassword = async ( token: string, old_password: string, new_password: string ) => {
+
+        try {
+
+            if(!old_password || !new_password) throw new CustomError( 404, "fill in all fields" );
+
+            const tokenData = await this.teacherValidations.token( token );
+            const user = await this.teacherValidations.teacher( tokenData.id );
+
+            const passwordIsCorrect = await this.hashManager.compareHash( old_password, user.password );
+            if ( !passwordIsCorrect ) throw new CustomError( 404, "invalid password" );
+            if(old_password === new_password) throw new CustomError( 404, "new password can't be the same as the old one" );
+
+            await this.teacherValidations.password( new_password );
+            const passwordAsHash = await this.hashManager.createHash( new_password );
+            await this.teacherData.changePassword( tokenData.id, passwordAsHash );
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
 
     }
+
 
 }

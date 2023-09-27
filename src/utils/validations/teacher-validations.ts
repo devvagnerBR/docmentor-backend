@@ -2,6 +2,7 @@
 import { TeacherData } from '../../data/teacher-data';
 import { CustomError } from '../../models/custom-error';
 import { File } from '../../models/file-model';
+import { UserModel } from '../../models/teacher-model';
 import { Authenticator } from '../../services/authenticator';
 import { HashManager } from '../../services/hash-manager';
 import { AuthenticationData } from '../../types/authenticator-type';

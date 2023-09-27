@@ -31,3 +31,4 @@ teacherRouter.get( "/profile", userController.getUserById );
 teacherRouter.get( "/students", userController.getTeacherStudents );
 teacherRouter.put( "/edit", userController.updateTeacher );
 teacherRouter.put( "/profile/image", upload.single( "file" ), userController.updateProfileImage );
+teacherRouter.put( "/profile/password", userController.changePassword )

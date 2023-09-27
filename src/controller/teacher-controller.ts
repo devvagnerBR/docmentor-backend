@@ -124,7 +124,25 @@ export class teacherController {
                 res.status( 404 ).send( error.message );
             }
         }
+    }
 
+    changePassword = async ( req: Request, res: Response ) => {
+            
+            try {
+    
+                const token = req.headers.authorization as string;
+                const { old_password, new_password } = req.body;
+    
+                await this.teacherBusiness.changePassword( token, old_password, new_password );
+                res.status( 200 ).send( { message: "password updated successfully" } );
+    
+            } catch ( error: any ) {
+                if ( error instanceof CustomError ) {
+                    res.status( 404 ).send( error.message );
+                } else {
+                    res.status( 404 ).send( error.message );
+                }
+            }
     }
 
 

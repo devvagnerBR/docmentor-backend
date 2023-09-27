@@ -193,4 +193,22 @@ export class TeacherData {
     }
 
 
+    changePassword = async ( token: string, password: string ) => {
+
+        try {
+
+            await PRISMA_CLIENT.teacher.update( {
+                where: {
+                    id: token
+                },
+                data: {
+                    password
+                }
+            } );
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
+
 }
