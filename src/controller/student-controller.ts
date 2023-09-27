@@ -73,22 +73,41 @@ export class StudentController {
 
 
     deleteStudent = async ( req: Request, res: Response ) => {
-            
-            try {
-    
-                const { studentId } = req.params;
-                const token = req.headers.authorization as string;
-    
-                await this.studentBusiness.deleteStudent( studentId, token );
-                res.status( 200 ).send( "student successfully deleted" );
-    
-            } catch ( error: any ) {
-                if ( error instanceof CustomError ) {
-                    res.status( 404 ).send( error.message );
-                } else {
-                    res.status( 404 ).send( error.message );
-                }
+
+        try {
+
+            const { studentId } = req.params;
+            const token = req.headers.authorization as string;
+
+            await this.studentBusiness.deleteStudent( studentId, token );
+            res.status( 200 ).send( "student successfully deleted" );
+
+        } catch ( error: any ) {
+            if ( error instanceof CustomError ) {
+                res.status( 404 ).send( error.message );
+            } else {
+                res.status( 404 ).send( error.message );
             }
+        }
+    }
+
+    searchStudent = async ( req: Request, res: Response ) => {
+
+        try {
+
+            const { name, take, skip } = req.query;
+            const token = req.headers.authorization as string;
+
+            const students = await this.studentBusiness.searchStudent( token, name as string, Number( take ), Number( skip ) );
+            res.status( 200 ).send( students );
+
+        } catch ( error: any ) {
+            if ( error instanceof CustomError ) {
+                res.status( 404 ).send( error.message );
+            } else {
+                res.status( 404 ).send( error.message );
+            }
+        }
     }
 
 

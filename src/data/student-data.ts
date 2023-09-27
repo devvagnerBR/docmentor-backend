@@ -128,42 +128,67 @@ export class StudentData {
     }
 
     deleteStudent = async ( studentId: string ) => {
-            
-            try {
-    
-                await PRISMA_CLIENT.student.update( {
-                    where: {
-                        id: studentId
-                    },
-                    data: {
-                        status: false
-                    }
-                } );
-    
-            } catch ( error: any ) {
-                throw new Error( error.message );
-            }
+
+        try {
+
+            await PRISMA_CLIENT.student.update( {
+                where: {
+                    id: studentId
+                },
+                data: {
+                    status: false
+                }
+            } );
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
     }
 
 
     getStudentByParentId = async ( parentId: string ) => {
-                
-            try {
-    
-                const student = await PRISMA_CLIENT.student.findFirst( {
-                    where: {
-                        parents: {
-                            some: {
-                                id: parentId
-                            }
+
+        try {
+
+            const student = await PRISMA_CLIENT.student.findFirst( {
+                where: {
+                    parents: {
+                        some: {
+                            id: parentId
                         }
                     }
-                } );
-    
-                return student;
-    
-            } catch ( error: any ) {
-                throw new Error( error.message );
-            }
+                }
+            } );
+
+            return student;
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+    }
+
+    searchStudent = async ( id: string, name: string, take: number, skip: number ) => {
+
+        try {
+
+            const search = await PRISMA_CLIENT.student.findMany( {
+                where: {
+                    teacher_id: id,
+                    name: {
+                        contains: name,
+                        mode: 'insensitive'
+                    }
+                },
+                take: take || 5, 
+                skip: skip || 0 
+
+            } );
+
+            return search;
+
+        } catch ( error: any ) {
+            throw new Error( error.message );
+        }
+
     }
 }

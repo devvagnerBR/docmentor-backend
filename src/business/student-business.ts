@@ -91,7 +91,7 @@ export class StudentBusiness {
         }
 
     }
-    
+
     deleteStudent = async ( studentId: string, token: string ) => {
 
         try {
@@ -105,6 +105,22 @@ export class StudentBusiness {
             if ( student.teacher_id !== teacher.id ) throw new CustomError( 401, "you are not allowed to access this information" );
 
             await this.studentData.deleteStudent( studentId );
+
+        } catch ( error: any ) {
+            throw new CustomError( error.statusCode, error.message );
+        }
+    }
+
+    searchStudent = async ( token: string, name: string, take: number, skip: number ) => {
+
+        try {
+
+            const tokenData = await this.teacherValidations.token( token );
+            await this.teacherValidations.teacher( tokenData.id );
+
+            const students = await this.studentData.searchStudent( tokenData.id, name, take, skip );
+
+            return students;
 
         } catch ( error: any ) {
             throw new CustomError( error.statusCode, error.message );
