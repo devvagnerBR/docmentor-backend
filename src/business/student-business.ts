@@ -96,6 +96,7 @@ export class StudentBusiness {
 
         try {
 
+            if ( !studentId ) throw new CustomError( 400, "you must provide a student id" );
             const tokenData = await this.teacherValidations.token( token );
             const teacher = await this.teacherData.getPrivateUserById( tokenData.id );
             if ( !teacher ) throw new CustomError( 404, "teacher not found" );

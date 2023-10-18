@@ -76,10 +76,11 @@ export class StudentData {
                     updated_at: true,
                     teacher_id: true,
 
+
                 }
             } );
 
-            return student;
+            return { ...student, parents: student?.parents[0], school: student?.school[0] };
 
         } catch ( error: any ) {
             throw new Error( error.message );
@@ -177,10 +178,15 @@ export class StudentData {
                     name: {
                         contains: name,
                         mode: 'insensitive'
-                    }
+                    },
+                    status: true
                 },
-                take: take || 5, 
-                skip: skip || 0 
+                orderBy: {
+                    updated_at: 'desc'
+                }
+                ,
+                take: take || 15,
+                skip: skip || 0
 
             } );
 
